@@ -3,7 +3,7 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
   PUBLIC SECTION.
     TYPES: BEGIN OF ty_row,
         rowtype TYPE c LENGTH 23,
-        index TYPE n LENGTH 10,
+        index   TYPE n LENGTH 10,
       END OF ty_row.
 
     TYPES: BEGIN OF ty_column,
@@ -32,7 +32,7 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
       VALUE(e_display) TYPE char01 OPTIONAL.
 
     EVENTS user_command EXPORTING
-      VALUE(e_ucomm) TYPE string.
+      VALUE(e_ucomm) TYPE sy-ucomm.
 
     EVENTS double_click EXPORTING
       VALUE(e_row) TYPE ty_row
@@ -105,7 +105,9 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
       mc_evt_enter      TYPE i VALUE 5,
       mc_style_button   TYPE i VALUE 6,
       mc_style_f4       TYPE i VALUE 7,
-      mc_style4_link_no TYPE i VALUE 8.
+      mc_style_no_delete_row       TYPE i VALUE 8,
+      mc_style_f4_no       TYPE i VALUE 9,
+      mc_style4_link_no TYPE i VALUE 0.
 
     CONSTANTS:
       mc_mb_variant      TYPE string VALUE 'a',
@@ -193,6 +195,10 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
       mc_fc_expmdb TYPE string VALUE '1',
       mc_fc_f4 TYPE string VALUE '1',
       mc_fc_variant_admin TYPE string VALUE '1',
+      mc_fc_excl_all TYPE string VALUE '1',
+      mc_fg_sort TYPE string VALUE '1',
+      mc_fc_call_xml_export TYPE string VALUE '1',
+      mc_fc_find_more TYPE string VALUE '1',
       mc_fc_loc_delete_row TYPE string VALUE 'x'.
 
     CLASS-METHODS offline RETURNING VALUE(off) TYPE i.
@@ -267,8 +273,8 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
             VALUE(i_gridtitle) TYPE any,
       set_selected_rows
         IMPORTING
-          it_index_rows TYPE any OPTIONAL
-          it_row_no     TYPE any OPTIONAL
+          it_index_rows            TYPE any OPTIONAL
+          it_row_no                TYPE any OPTIONAL
           is_keep_other_selections TYPE any OPTIONAL,
       refresh_table_display
         IMPORTING
@@ -279,10 +285,12 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
           i_ready_for_input TYPE any OPTIONAL,
       check_changed_data
         EXPORTING
-          e_valid TYPE any
+          e_valid   TYPE any
         CHANGING
           c_refresh TYPE any OPTIONAL,
-      register_delayed_event,
+      register_delayed_event
+        IMPORTING
+          i_event_id TYPE any,
       register_f4_for_fields
         IMPORTING
           it_f4 TYPE any,
@@ -291,16 +299,16 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
           et_filtered_entries TYPE lvc_t_fidx,
       get_subtotals
         EXPORTING
-          ep_collect00 TYPE REF TO data
-          ep_collect01 TYPE REF TO data
-          ep_collect02 TYPE REF TO data
-          ep_collect03 TYPE REF TO data
-          ep_collect04 TYPE REF TO data
-          ep_collect05 TYPE REF TO data
-          ep_collect06 TYPE REF TO data
-          ep_collect07 TYPE REF TO data
-          ep_collect08 TYPE REF TO data
-          ep_collect09 TYPE REF TO data
+          ep_collect00   TYPE REF TO data
+          ep_collect01   TYPE REF TO data
+          ep_collect02   TYPE REF TO data
+          ep_collect03   TYPE REF TO data
+          ep_collect04   TYPE REF TO data
+          ep_collect05   TYPE REF TO data
+          ep_collect06   TYPE REF TO data
+          ep_collect07   TYPE REF TO data
+          ep_collect08   TYPE REF TO data
+          ep_collect09   TYPE REF TO data
           et_grouplevels TYPE lvc_t_grpl,
       set_table_for_first_display
         IMPORTING
@@ -313,6 +321,10 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
           it_toolbar_excluding TYPE any OPTIONAL
           it_hyperlink         TYPE any OPTIONAL
           i_default            TYPE abap_bool DEFAULT abap_true
+          is_print             TYPE any OPTIONAL
+          it_special_groups    TYPE any OPTIONAL
+          it_except_qinfo      TYPE any OPTIONAL
+          i_consistency_check  TYPE any OPTIONAL
         CHANGING
           it_fieldcatalog      TYPE ANY TABLE OPTIONAL
           it_sort              TYPE ANY TABLE OPTIONAL
@@ -347,7 +359,13 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
     METHODS set_selected_cells IMPORTING it_cells TYPE any.
     METHODS select_text_in_curr_cell.
     METHODS set_sort_criteria IMPORTING it_sort TYPE any.
-    METHODS raise_event IMPORTING i_ucomm TYPE any.
+
+    METHODS raise_event
+      IMPORTING
+      i_ucomm         TYPE sy-ucomm OPTIONAL
+      i_user_command  TYPE any OPTIONAL
+      i_not_processed TYPE any OPTIONAL
+      PREFERRED PARAMETER i_ucomm.
 
     METHODS list_processing_events
       IMPORTING
@@ -356,8 +374,33 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
 
     METHODS set_scroll_info_via_id
       IMPORTING
+        is_row_info TYPE any OPTIONAL
         is_col_info TYPE any
-        is_row_no   TYPE any.
+        is_row_no   TYPE any OPTIONAL.
+
+    METHODS set_selected_columns
+      IMPORTING
+        it_col_table             TYPE any
+        is_keep_other_selections TYPE any OPTIONAL.
+
+    METHODS get_variant
+      EXPORTING
+        es_variant TYPE disvariant
+        e_save     TYPE char1.
+
+    METHODS set_3d_border
+      IMPORTING
+        border TYPE i.
+
+    METHODS get_selected_columns
+      EXPORTING
+        et_index_columns TYPE lvc_t_col.
+
+    METHODS get_scroll_info_via_id
+      EXPORTING
+        es_row_no   TYPE lvc_s_roid
+        es_row_info TYPE lvc_s_row
+        es_col_info TYPE lvc_s_col.
 
   PROTECTED SECTION.
     DATA mt_outtab TYPE REF TO data.
@@ -365,6 +408,26 @@ CLASS cl_gui_alv_grid DEFINITION PUBLIC.
 ENDCLASS.
 
 CLASS cl_gui_alv_grid IMPLEMENTATION.
+  METHOD get_scroll_info_via_id.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD get_selected_columns.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD set_3d_border.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD get_variant.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD set_selected_columns.
+    RETURN.
+  ENDMETHOD.
+
   METHOD set_scroll_info_via_id.
     RETURN.
   ENDMETHOD.
