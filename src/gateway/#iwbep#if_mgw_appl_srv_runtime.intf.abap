@@ -13,15 +13,18 @@ INTERFACE /iwbep/if_mgw_appl_srv_runtime PUBLIC.
 
   METHODS get_stream
     IMPORTING
-      iv_entity_name          TYPE string
-      iv_entity_set_name      TYPE string
-      iv_source_name          TYPE string
-      it_key_tab              TYPE string
-      it_navigation_path      TYPE string
-      io_tech_request_context TYPE string
+      !iv_entity_name          TYPE string OPTIONAL
+      !iv_entity_set_name      TYPE string OPTIONAL
+      !iv_source_name          TYPE string OPTIONAL
+      !it_key_tab              TYPE /iwbep/t_mgw_name_value_pair OPTIONAL
+      !it_navigation_path      TYPE /iwbep/t_mgw_navigation_path OPTIONAL
+      !io_tech_request_context TYPE REF TO /iwbep/if_mgw_req_entity OPTIONAL
     EXPORTING
-      er_stream               TYPE string
-      es_response_context     TYPE string.
+      !er_stream               TYPE REF TO data
+      !es_response_context     TYPE ty_s_mgw_response_entity_cntxt
+    RAISING
+      /iwbep/cx_mgw_busi_exception
+      /iwbep/cx_mgw_tech_exception.
 
   METHODS update_stream
     IMPORTING
@@ -62,6 +65,24 @@ INTERFACE /iwbep/if_mgw_appl_srv_runtime PUBLIC.
     EXPORTING
       er_entityset             TYPE REF TO data
       es_response_context      TYPE string.
+
+  METHODS get_expanded_entity
+    IMPORTING
+      !iv_entity_name           TYPE string OPTIONAL
+      !iv_entity_set_name       TYPE string OPTIONAL
+      !iv_source_name           TYPE string OPTIONAL
+      !it_key_tab               TYPE /iwbep/t_mgw_name_value_pair OPTIONAL
+      !it_navigation_path       TYPE /iwbep/t_mgw_navigation_path OPTIONAL
+      !io_expand                TYPE REF TO /iwbep/if_mgw_odata_expand OPTIONAL
+      !io_tech_request_context  TYPE REF TO /iwbep/if_mgw_req_entity OPTIONAL
+    EXPORTING
+      !er_entity                TYPE REF TO data
+      !es_response_context      TYPE ty_s_mgw_response_entity_cntxt
+      !et_expanded_clauses      TYPE string_table
+      !et_expanded_tech_clauses TYPE string_table
+    RAISING
+      /iwbep/cx_mgw_busi_exception
+      /iwbep/cx_mgw_tech_exception.
 
   METHODS create_entity
     IMPORTING
