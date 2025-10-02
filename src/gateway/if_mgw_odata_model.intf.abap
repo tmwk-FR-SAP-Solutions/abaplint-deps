@@ -6,5 +6,5 @@ INTERFACE if_mgw_odata_model PUBLIC.
     RETURNING
       VALUE(ro_entity_type) TYPE REF TO /iwbep/if_mgw_odata_entity_typ
     RAISING
-      /iwbep/cx_mgw_med_exception .
+      /iwbep/cx_mgw_med_exception.
 ENDINTERFACE.
