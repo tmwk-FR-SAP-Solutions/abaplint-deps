@@ -66,96 +66,96 @@ CLASS cl_dd_area DEFINITION PUBLIC.
 
     METHODS add_area_switch
       IMPORTING
-      !switch_button_label TYPE string OPTIONAL
+      !switch_button_label    TYPE string OPTIONAL
       !switch_button_sap_icon TYPE iconname OPTIONAL
       CHANGING
-      !area TYPE REF TO cl_dd_area.
+      !area                   TYPE REF TO cl_dd_area.
     METHODS add_form
       EXPORTING
-      !formarea TYPE REF TO cl_dd_form_area
-      !main_url TYPE string
+      !formarea         TYPE REF TO cl_dd_form_area
+      !main_url         TYPE string
       !alv_offline_info TYPE string.
     METHODS add_gap
       IMPORTING
-      !width TYPE i OPTIONAL
+      !width      TYPE i OPTIONAL
       !width_like TYPE sdydo_text_element OPTIONAL.
     METHODS add_hidden_area
       CHANGING
       !area TYPE REF TO cl_dd_area.
     METHODS add_icon
       IMPORTING
-      !sap_icon TYPE iconname
-      !sap_size TYPE sdydo_attribute OPTIONAL
-      !sap_style TYPE sdydo_attribute OPTIONAL
-      !sap_color TYPE sdydo_attribute OPTIONAL
+      !sap_icon         TYPE iconname
+      !sap_size         TYPE sdydo_attribute OPTIONAL
+      !sap_style        TYPE sdydo_attribute OPTIONAL
+      !sap_color        TYPE sdydo_attribute OPTIONAL
       !alternative_text TYPE string OPTIONAL
-      !tabindex TYPE i OPTIONAL.
+      !tabindex         TYPE i OPTIONAL.
     METHODS add_link
       IMPORTING
-      !name TYPE sdydo_element_name OPTIONAL
-      !url TYPE string OPTIONAL
-      !tooltip TYPE string OPTIONAL
-      !text TYPE sdydo_text_element OPTIONAL
+      !name                   TYPE sdydo_element_name OPTIONAL
+      !url                    TYPE string OPTIONAL
+      !tooltip                TYPE string OPTIONAL
+      !text                   TYPE sdydo_text_element OPTIONAL
       !destination_in_doc_set TYPE string OPTIONAL
       !destination_in_doc_pos TYPE string OPTIONAL
-      !tabindex TYPE i OPTIONAL
-      !hotkey TYPE sdydo_c1 OPTIONAL
+      !tabindex               TYPE i OPTIONAL
+      !hotkey                 TYPE sdydo_c1 OPTIONAL
       EXPORTING
-      !link TYPE REF TO cl_dd_link_element.
+      !link                   TYPE REF TO cl_dd_link_element.
     METHODS add_picture
       IMPORTING
       VALUE(picture_id) TYPE sdydo_key
-      !width TYPE string OPTIONAL
+      !width            TYPE string OPTIONAL
       !alternative_text TYPE string OPTIONAL
-      !tabindex TYPE i OPTIONAL.
+      !tabindex         TYPE i OPTIONAL.
     METHODS add_static_html
       IMPORTING
-      !table_with_html TYPE sdydo_html_table OPTIONAL
-      !string_with_html TYPE string OPTIONAL
+      !table_with_html            TYPE sdydo_html_table OPTIONAL
+      !string_with_html           TYPE string OPTIONAL
       !html_from_dynamic_document TYPE sdydo_flag OPTIONAL
-      !bds_pictures TYPE sdydo_picture_table OPTIONAL.
+      !bds_pictures               TYPE sdydo_picture_table OPTIONAL.
     METHODS add_table
       IMPORTING
-      !no_of_columns TYPE i
-      !with_heading TYPE sdydo_flag OPTIONAL
+      !no_of_columns               TYPE i
+      !with_heading                TYPE sdydo_flag OPTIONAL
       !cell_background_transparent TYPE sdydo_flag DEFAULT 'X'
-      !border TYPE sdydo_value DEFAULT '1'
-      !width TYPE sdydo_value OPTIONAL
-      !with_a11y_marks TYPE sdydo_flag OPTIONAL
-      !a11y_label TYPE string OPTIONAL
+      !border                      TYPE sdydo_value DEFAULT '1'
+      !width                       TYPE sdydo_value OPTIONAL
+      !with_a11y_marks             TYPE sdydo_flag OPTIONAL
+      !a11y_label                  TYPE string OPTIONAL
       EXPORTING
-      !table TYPE REF TO cl_dd_table_element
-      !tablearea TYPE REF TO cl_dd_table_area
+      !table                       TYPE REF TO cl_dd_table_element
+      !tablearea                   TYPE REF TO cl_dd_table_area
       EXCEPTIONS
       table_already_used.
     METHODS add_text
       IMPORTING
-      !text TYPE sdydo_text_element OPTIONAL
-      !text_table TYPE sdydo_text_table OPTIONAL
-      !fix_lines TYPE sdydo_flag OPTIONAL
-      !sap_style TYPE sdydo_attribute OPTIONAL
-      !sap_color TYPE sdydo_attribute OPTIONAL
-      !sap_fontsize TYPE sdydo_attribute OPTIONAL
+      !text          TYPE sdydo_text_element OPTIONAL
+      !text_table    TYPE sdydo_text_table OPTIONAL
+      !fix_lines     TYPE sdydo_flag OPTIONAL
+      !sap_style     TYPE sdydo_attribute OPTIONAL
+      !sap_color     TYPE sdydo_attribute OPTIONAL
+      !sap_fontsize  TYPE sdydo_attribute OPTIONAL
       !sap_fontstyle TYPE sdydo_attribute OPTIONAL
-      !sap_emphasis TYPE sdydo_attribute OPTIONAL
-      !style_class TYPE sdydo_attribute OPTIONAL
-      !a11y_tooltip TYPE string OPTIONAL
+      !sap_emphasis  TYPE sdydo_attribute OPTIONAL
+      !style_class   TYPE sdydo_attribute OPTIONAL
+      !a11y_tooltip  TYPE string OPTIONAL
       CHANGING
-      !document TYPE REF TO cl_dd_document OPTIONAL.
+      !document      TYPE REF TO cl_dd_document OPTIONAL.
     METHODS add_text_as_heading
       IMPORTING
-      !text TYPE sdydo_text_element
-      !sap_color TYPE sdydo_attribute OPTIONAL
+      !text          TYPE sdydo_text_element
+      !sap_color     TYPE sdydo_attribute OPTIONAL
       !sap_fontstyle TYPE sdydo_attribute OPTIONAL
       !heading_level TYPE i DEFAULT 3
-      !a11y_tooltip TYPE string OPTIONAL
+      !a11y_tooltip  TYPE string OPTIONAL
       CHANGING
-      !document TYPE REF TO cl_dd_document OPTIONAL.
+      !document      TYPE REF TO cl_dd_document OPTIONAL.
     METHODS constructor
       IMPORTING
-      !id TYPE sdydo_element_name
+      !id             TYPE sdydo_element_name
       !gui_properties TYPE sdydo_act_gui_properties OPTIONAL
-      !a11y_turned TYPE sdydo_flag OPTIONAL.
+      !a11y_turned    TYPE sdydo_flag OPTIONAL.
     METHODS html_insert
       IMPORTING
       !contents TYPE string
@@ -163,8 +163,8 @@ CLASS cl_dd_area DEFINITION PUBLIC.
       !position TYPE i.
     METHODS line_with_layout
       IMPORTING
-      !start TYPE sdydo_flag OPTIONAL
-      !end TYPE sdydo_flag OPTIONAL
+      !start            TYPE sdydo_flag OPTIONAL
+      !end              TYPE sdydo_flag OPTIONAL
       !no_leading_break TYPE sdydo_flag DEFAULT ' '.
     METHODS new_line
       IMPORTING
@@ -172,24 +172,24 @@ CLASS cl_dd_area DEFINITION PUBLIC.
     METHODS no_linebreak
       IMPORTING
       !start TYPE sdydo_flag OPTIONAL
-      !end TYPE sdydo_flag OPTIONAL.
+      !end   TYPE sdydo_flag OPTIONAL.
     METHODS set_area_style
       IMPORTING
       !background_color TYPE i OPTIONAL
-      !sap_style TYPE sdydo_attribute OPTIONAL
-      !sap_color TYPE sdydo_attribute OPTIONAL
-      !sap_fontsize TYPE sdydo_attribute OPTIONAL
-      !sap_fontstyle TYPE sdydo_attribute OPTIONAL
-      !sap_emphasis TYPE sdydo_attribute OPTIONAL
-      !style_class TYPE sdydo_attribute OPTIONAL.
+      !sap_style        TYPE sdydo_attribute OPTIONAL
+      !sap_color        TYPE sdydo_attribute OPTIONAL
+      !sap_fontsize     TYPE sdydo_attribute OPTIONAL
+      !sap_fontstyle    TYPE sdydo_attribute OPTIONAL
+      !sap_emphasis     TYPE sdydo_attribute OPTIONAL
+      !style_class      TYPE sdydo_attribute OPTIONAL.
     METHODS set_attributes
       IMPORTING
-      !color TYPE sdydo_attribute
-      !size TYPE sdydo_attribute
-      !style TYPE sdydo_attribute
+      !color    TYPE sdydo_attribute
+      !size     TYPE sdydo_attribute
+      !style    TYPE sdydo_attribute
       !emphasis TYPE sdydo_attribute OPTIONAL
       EXPORTING
-      !buffer TYPE string.
+      !buffer   TYPE string.
     METHODS underline.
   PROTECTED SECTION.
 
@@ -197,60 +197,60 @@ CLASS cl_dd_area DEFINITION PUBLIC.
     DATA html_str TYPE string.
     DATA line TYPE string.
     DATA no_of_switches TYPE i.
-    
+
     METHODS convert_attribute
       IMPORTING
-      !sap_attribute TYPE sdydo_attribute
+      !sap_attribute         TYPE sdydo_attribute
       EXPORTING
-      !html_attribute TYPE sdydo_html_line
+      !html_attribute        TYPE sdydo_html_line
       !change_foreground_col TYPE c.
     METHODS get_image_relpath
       IMPORTING
-      !image_id TYPE sbdst_object_key
-      !is_icon TYPE sdydo_flag
+      !image_id   TYPE sbdst_object_key
+      !is_icon    TYPE sdydo_flag
       EXPORTING
       !image_path TYPE sdydo_url
       !image_name TYPE sdydo_url.
     METHODS handle_hotkey
       IMPORTING
-      !hotkey TYPE sdydo_c1
+      !hotkey         TYPE sdydo_c1
       EXPORTING
-      !hotkey_str TYPE string
+      !hotkey_str     TYPE string
       !hotkey_tooltip TYPE string.
     METHODS handle_styles
       IMPORTING
-      !sap_style TYPE sdydo_attribute OPTIONAL
-      !sap_color TYPE sdydo_attribute OPTIONAL
-      !sap_fontsize TYPE sdydo_attribute OPTIONAL
+      !sap_style     TYPE sdydo_attribute OPTIONAL
+      !sap_color     TYPE sdydo_attribute OPTIONAL
+      !sap_fontsize  TYPE sdydo_attribute OPTIONAL
       !sap_fontstyle TYPE sdydo_attribute OPTIONAL
-      !sap_emphasis TYPE sdydo_attribute OPTIONAL
-      !style_class TYPE sdydo_attribute OPTIONAL
+      !sap_emphasis  TYPE sdydo_attribute OPTIONAL
+      !style_class   TYPE sdydo_attribute OPTIONAL
       EXPORTING
-      !style_buff TYPE string.
+      !style_buff    TYPE string.
     METHODS handle_tabindex
       IMPORTING
-      !tabindex TYPE i
+      !tabindex     TYPE i
       EXPORTING
       !tabindex_str TYPE string.
     METHODS handle_tooltip
       IMPORTING
-      !element_name TYPE string OPTIONAL
-      !info_text TYPE string OPTIONAL
+      !element_name   TYPE string OPTIONAL
+      !info_text      TYPE string OPTIONAL
       !hotkey_tooltip TYPE string OPTIONAL
-      !element_label TYPE string OPTIONAL
+      !element_label  TYPE string OPTIONAL
       EXPORTING
-      !tooltip_str TYPE string.
+      !tooltip_str    TYPE string.
     METHODS html_insert_element
       IMPORTING
       !element_name TYPE sdydo_element_name.
     METHODS insert_special_char
       CHANGING
-      !text TYPE string OPTIONAL
+      !text     TYPE string OPTIONAL
       !position TYPE i OPTIONAL
-      !textstr TYPE string OPTIONAL.
+      !textstr  TYPE string OPTIONAL.
     CLASS-METHODS prepare_col_property
       IMPORTING
-      !color TYPE i OPTIONAL
+      !color        TYPE i OPTIONAL
       EXPORTING
       !col_property TYPE sdydo_attribute.
     METHODS set_cursor
@@ -261,8 +261,8 @@ CLASS cl_dd_area DEFINITION PUBLIC.
       !new_id TYPE sdydo_element_name.
     METHODS wrap_id
       IMPORTING
-      !id TYPE sdydo_element_name
-      !is_endtag TYPE sdydo_flag OPTIONAL
+      !id         TYPE sdydo_element_name
+      !is_endtag  TYPE sdydo_flag OPTIONAL
       EXPORTING
       !wrapped_id TYPE sdydo_wrapped_element_name.
 ENDCLASS.
@@ -283,7 +283,7 @@ CLASS cl_dd_area IMPLEMENTATION.
   METHOD handle_styles.
     RETURN.
   ENDMETHOD.
-  
+
   METHOD handle_tabindex.
     RETURN.
   ENDMETHOD.

@@ -16,7 +16,7 @@ CLASS cl_gui_object DEFINITION PUBLIC.
       VALUE(result) TYPE i.
     METHODS constructor
       IMPORTING
-      VALUE(clsid) TYPE c OPTIONAL
+      VALUE(clsid)    TYPE c OPTIONAL
       VALUE(lifetime) TYPE i OPTIONAL
       EXCEPTIONS
       create_error
